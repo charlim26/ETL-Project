@@ -1,0 +1,39 @@
+-- Create tables
+CREATE TABLE speaker (
+	id INT PRIMARY KEY,
+	season INT,
+	episode INT,
+	title TEXT,
+	speaker TEXT
+);
+
+CREATE TABLE imdb (
+	id INT PRIMARY KEY,
+	season INT,
+	title TEXT,
+	rating FLOAT,
+	num_votes INT
+);
+
+
+-- Verify entries have been successfully loaded
+SELECT * FROM speaker;
+
+SELECT * FROM imdb;
+
+-- Join tables
+CREATE VIEW es AS 
+SELECT speaker.season, speaker.episode, speaker.title, speaker.speaker, imdb.rating, imdb.num_votes
+FROM speaker
+RIGHT JOIN  imdb
+ON speaker.season = imdb.season AND
+   speaker.title = imdb.title;
+
+select season, speaker, count(speaker), rating from the_office
+group by season, speaker, rating
+order by rating DESC, count(speaker) DESC
+
+SELECT speaker, count(speaker) "number of lines", season, episode, rating
+FROM the_office
+GROUP BY speaker, season, episode, rating
+ORDER BY rating DESC
